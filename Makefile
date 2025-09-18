@@ -1,3 +1,5 @@
+setup: install build
+
 lint-frontend:
 	make -C frontend lint
 
@@ -9,9 +11,6 @@ start-frontend:
 
 start-backend:
 	npx start-server -s ./frontend/dist
-
-deploy:
-	make install & make build
 
 start:
 	make start-backend
