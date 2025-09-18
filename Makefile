@@ -11,7 +11,7 @@ start-backend:
 	npx start-server -s ./frontend/dist
 
 deploy:
-	git push heroku main
+	make install & make build
 
 start:
 	make start-backend
