@@ -2,7 +2,7 @@
 
 [![Actions Status](https://github.com/ilrosch/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ilrosch/frontend-project-12/actions)
 
-[**DEMO** - click here!]()
+[**DEMO** - click here!](https://frontend-project-12-9p10.onrender.com/)
 
 Дипломный проект строится на технологиях, используемых в повседневной работе фронтенд-разработчиками в целом и React-разработчиками в частности. Его цель - показать спектр всех стандартных задач, с которыми придётся столкнуться в реальной жизни. Среди них: работа с веб-сокетами, взаимодействие с REST API, использование React (с хуками), Redux (через reduxjs/toolkit), организация роутинга на клиенте, авторизация и аутентификация и, конечно же, сборка (vite) и деплой.
 
