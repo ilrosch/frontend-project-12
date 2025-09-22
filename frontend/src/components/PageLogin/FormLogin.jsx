@@ -1,9 +1,13 @@
-import { Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setCredential } from '../../services/slices/authSlice';
+import { useNavigate } from 'react-router';
 
 const LoginSchema = yup.object().shape({
-  name: yup
+  username: yup
     .string()
     .min(2, 'Минимум 2 символа!')
     .max(50, 'Максимум 50 символов!')
@@ -12,28 +16,39 @@ const LoginSchema = yup.object().shape({
 });
 
 export default function FormLogin() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const formik = useFormik({
-    initialValues: { name: '', password: '' },
+    initialValues: { username: '', password: '' },
     validationSchema: LoginSchema,
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        const { data } = await axios.post('/api/v1/login', values);
+        localStorage.setItem('user', JSON.stringify(data));
+        dispatch(setCredential(data));
+        navigate('/', { replace: true });
+      } catch (err) {
+        formik.setStatus('error');
+        console.error(err.code);
+      }
     },
   });
 
   return (
     <Form className='mb-2' onSubmit={formik.handleSubmit} noValidate>
-      <Form.FloatingLabel controlId='name' label='Ваш ник' className='mb-2'>
+      <Form.FloatingLabel controlId='username' label='Ваш ник' className='mb-2'>
         <Form.Control
           type='text'
-          name='name'
+          name='username'
           placeholder='Ваш ник'
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.name}
-          isInvalid={formik.touched.name && !!formik.errors.name}
+          value={formik.values.username}
+          isInvalid={formik.touched.username && !!formik.errors.username}
         />
         <Form.Control.Feedback type='invalid'>
-          {formik.touched.name && formik.errors.name}
+          {formik.touched.username && formik.errors.username}
         </Form.Control.Feedback>
       </Form.FloatingLabel>
 
@@ -55,6 +70,12 @@ export default function FormLogin() {
       <Button type='submit' variant='primary' size='lg' disabled={!formik.isValid || !formik.dirty}>
         Войти
       </Button>
+
+      {formik.status === 'error' && (
+        <Alert variant='danger' className='mt-3'>
+          Неверные имя пользователя или пароль!
+        </Alert>
+      )}
     </Form>
   );
 }
