@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 export default function PageLogin() {
   return (
     <TemplatePage>
-      <div className='d-flex'>
+      <div className='d-flex align-items-start'>
         <Card border='0' className='w-100 p-3 shadow-sm' style={{ maxWidth: `500px` }}>
           <Card.Body>
             <Card.Title className='fs-3 fw-bold mb-4'>Вход</Card.Title>

@@ -1,10 +1,10 @@
 import { Alert, Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setCredential } from '../../services/slices/authSlice';
 import { useNavigate } from 'react-router';
+import { login } from '../../api/auth';
 
 const LoginSchema = yup.object().shape({
   username: yup
@@ -24,7 +24,7 @@ export default function FormLogin() {
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post('/api/v1/login', values);
+        const { data } = await login(values);
         localStorage.setItem('user', JSON.stringify(data));
         dispatch(setCredential(data));
         navigate('/', { replace: true });

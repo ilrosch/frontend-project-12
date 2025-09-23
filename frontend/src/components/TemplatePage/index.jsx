@@ -12,8 +12,8 @@ export default function TemplatePage({ children }) {
         </Container>
       </header>
       <main className='d-flex py-3' style={{ flex: '1 1' }}>
-        <Container>
-          <Row>{children}</Row>
+        <Container className='h-100'>
+          <Row className='h-100'>{children}</Row>
         </Container>
       </main>
       <footer className='d-flex py-3 bg-dark' style={{ flex: '0 0' }}>
