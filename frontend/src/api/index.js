@@ -1,14 +1,13 @@
 import axios from "axios";
+import './socket';
+import { selectCurrentToken } from "../services/slices/authSlice";
+import store from "../services/store";
 
 const api = axios.create({});
 
-const getToken = () => localStorage.getItem('user')
-  ? JSON.parse(localStorage.getItem('user')).token
-  : null;
-
 api.interceptors.request.use(
   (config) => {
-    const token = getToken();
+    const token = selectCurrentToken(store.getState());
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },

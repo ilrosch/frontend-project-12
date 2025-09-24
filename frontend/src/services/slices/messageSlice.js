@@ -6,14 +6,14 @@ const messageSlice = createSlice({
   name: 'message',
   initialState: messageAdapter.getInitialState(),
   reducers: {
-    addmessage: messageAdapter.addOne,
-    addmessages: messageAdapter.addMany,
-    updatemessage: messageAdapter.updateOne,
-    removemessage: messageAdapter.removeOne,
+    addMessage: messageAdapter.addOne,
+    addMessages: messageAdapter.addMany,
+    updateMessage: messageAdapter.updateOne,
+    removeMessage: messageAdapter.removeOne,
   },
 });
 
-export const { addmessage, addmessages, updatemessage, removemessage } = messageSlice.actions;
+export const { addMessage, addMessages, updateMessage, removemMssage } = messageSlice.actions;
 
 export default messageSlice.reducer;
 

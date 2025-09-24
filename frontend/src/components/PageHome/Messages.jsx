@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../services/slices/authSlice';
 import { selectAllmessages } from '../../services/slices/messageSlice';
 import FormMessage from './FormMessage';
+import { useEffect, useRef } from 'react';
 
 function MessageItem({ msg, username }) {
   if (msg.username === username) {
@@ -23,25 +24,30 @@ function MessageItem({ msg, username }) {
 }
 
 export default function Messages({ activeChannel }) {
+  const messageBoxRef = useRef(null);
   const currentUser = useSelector(selectCurrentUser);
   const messagesActiveChannel = useSelector(selectAllmessages).filter(
     ({ channelId }) => channelId == activeChannel.id,
   );
 
+  useEffect(() => {
+    messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
+  }, [messagesActiveChannel]);
+
   return (
-    <Col className='col-9 d-flex flex-column'>
+    <Col className='d-flex flex-column h-100'>
       <div className='px-3 py-2 border-bottom'>
         <div className='fw-bold'># {activeChannel.name}</div>
         <div>{messagesActiveChannel.length} сообщений</div>
       </div>
 
-      <div className='p-3 bg-white' style={{ flex: '1 1' }}>
+      <div ref={messageBoxRef} className='p-3 bg-white overflow-auto flex-grow-1'>
         {messagesActiveChannel.map((msg) => (
           <MessageItem key={msg.id} msg={msg} username={currentUser} />
         ))}
       </div>
 
-      <FormMessage />
+      <FormMessage activeChannel={activeChannel} username={currentUser} />
     </Col>
   );
 }

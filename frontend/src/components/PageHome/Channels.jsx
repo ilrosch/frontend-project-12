@@ -21,7 +21,10 @@ export default function Channels() {
   const [activeChannel, setActiveChannel] = useState({ name: 'general', id: 1 });
 
   return (
-    <div className='d-flex p-0 bg-light shadow-sm rounded'>
+    <div
+      className='d-flex p-0 bg-light shadow-sm rounded'
+      style={{ maxHeight: 'calc(100vh - 150px)' }}
+    >
       <Col className='col-3 p-3 border-end h-100'>
         <div className='d-flex justify-content-between align-items-center mb-2'>
           <div className='fs-5 fw-bold'>Каналы</div>
