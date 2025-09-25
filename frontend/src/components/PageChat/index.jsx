@@ -3,24 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import TemplatePage from '../TemplatePage';
 import { selectCurrentToken } from '../../services/slices/authSlice';
 import { useEffect } from 'react';
-import { fetchChannels, fetchMessage } from '../../api/chat';
-import Channels from './Channels';
-import { addChannels } from '../../services/slices/channelSlice';
-import { addMessages } from '../../services/slices/messageSlice';
+import chat from '../../api/chat';
+import ChatBox from './ChatBox';
 
-const loadData = async (dispatch) => {
-  try {
-    const psChannels = fetchChannels();
-    const psMesssages = fetchMessage();
-    const [channelsData, messageData] = await Promise.all([psChannels, psMesssages]);
-    dispatch(addChannels(channelsData.data));
-    dispatch(addMessages(messageData.data));
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export default function PageHome() {
+export default function PageChat() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentToken = useSelector(selectCurrentToken);
@@ -33,7 +19,7 @@ export default function PageHome() {
 
   useEffect(() => {
     if (currentToken) {
-      loadData(dispatch);
+      chat.loadInitData();
     }
   }, [currentToken, dispatch]);
 
@@ -43,7 +29,7 @@ export default function PageHome() {
 
   return (
     <TemplatePage>
-      <Channels />
+      <ChatBox />
     </TemplatePage>
   );
 }

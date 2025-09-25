@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { setCredential } from '../../services/slices/authSlice';
 import { useNavigate } from 'react-router';
 import { login } from '../../api/auth';
+import { useEffect, useRef } from 'react';
+import { changeDisabledButton } from '../../utils';
 
 const LoginSchema = yup.object().shape({
   username: yup
@@ -19,12 +21,26 @@ export default function FormLogin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const inputElement = useRef(null);
+  const buttonElement = useRef(null);
+
+  useEffect(() => {
+    inputElement.current.focus();
+  }, []);
+
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
+      changeDisabledButton(buttonElement.current);
+
+      const normalize = {
+        username: values.username.trim(),
+        password: values.password,
+      };
+
       try {
-        const { data } = await login(values);
+        const { data } = await login(normalize);
         localStorage.setItem('user', JSON.stringify(data));
         dispatch(setCredential(data));
         navigate('/', { replace: true });
@@ -32,6 +48,8 @@ export default function FormLogin() {
         formik.setStatus('error');
         console.error(err.code);
       }
+
+      changeDisabledButton(buttonElement.current);
     },
   });
 
@@ -39,6 +57,7 @@ export default function FormLogin() {
     <Form className='mb-2' onSubmit={formik.handleSubmit} noValidate>
       <Form.FloatingLabel controlId='username' label='Ваш ник' className='mb-2'>
         <Form.Control
+          ref={inputElement}
           type='text'
           name='username'
           placeholder='Ваш ник'
@@ -67,7 +86,13 @@ export default function FormLogin() {
         </Form.Control.Feedback>
       </Form.FloatingLabel>
 
-      <Button type='submit' variant='primary' size='lg' disabled={!formik.isValid || !formik.dirty}>
+      <Button
+        ref={buttonElement}
+        type='submit'
+        variant='primary'
+        size='lg'
+        disabled={!formik.isValid || !formik.dirty}
+      >
         Войти
       </Button>
 

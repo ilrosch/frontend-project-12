@@ -23,4 +23,4 @@ export const channelSelectors = channelAdapter.getSelectors((state) => state.cha
 
 export const selectAllChannels = channelSelectors.selectAll;
 
-export const selectIdsChannels = channelSelectors.selectIds;
+export const selectChannelById = channelSelectors.selectById;

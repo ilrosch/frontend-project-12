@@ -1,0 +1,4 @@
+.dropdown-menu-custom {
+  inset: auto 0 auto auto !important;
+  transform: translateY(40px) !important;
+}
