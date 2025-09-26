@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import PageChat from './components/PageChat';
-import PageLogin from './components/PageLogin';
-import PageNotFond from './components/PageNotFond';
-import PageSingUp from './components/PageSingUp';
+import ChatPage from './components/pages/Chat';
+import LoginPage from './components/pages/Login';
+import SingUpPage from './components/pages/SingUp';
+import NotFoundPage from './components/pages/NotFound';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<PageChat />} />
-        <Route path='/login' element={<PageLogin />} />
-        <Route path='/singup' element={<PageSingUp />} />
-        <Route path='*' element={<PageNotFond />} />
+        <Route path='/' element={<ChatPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/singup' element={<SingUpPage />} />
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

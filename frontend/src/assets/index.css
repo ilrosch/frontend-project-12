@@ -1,0 +1,21 @@
+.dropdown-menu-custom {
+  inset: auto 0 auto auto !important;
+  transform: translateY(40px) !important;
+}
+
+@media (max-width: 550px) {
+  #chatbox {
+    max-height: fit-content !important;
+    padding: 10px !important;
+  }
+
+  #chatbox > div:first-child {
+    height: 200px !important;
+    flex-grow: 1;
+    border-bottom: 1px dotted black;
+  }
+
+  #chatbox > div:last-child {
+    height: 400px !important;
+  }
+}

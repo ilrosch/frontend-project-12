@@ -1,17 +1,24 @@
-import axios from "axios";
-import './socket';
-import { selectCurrentToken } from "../services/slices/authSlice";
-import store from "../services/store";
+import { addChannel, fetchChannels, removeChannel, renameChannel } from "./routers/channel";
+import { addMessage, fetchMessages } from "./routers/message";
+import { fetchInitData } from "./routers/init";
+import { login, singUp } from "./routers/auth";
 
-const api = axios.create({});
-
-api.interceptors.request.use(
-  (config) => {
-    const token = selectCurrentToken(store.getState());
-    if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config;
+const handleApi = {
+  auth: {
+    login,
+    singUp
   },
-  (error) => Promise.reject(error)
-);
+  channel: {
+    add: addChannel,
+    rename: renameChannel,
+    remove: removeChannel,
+    fetch: fetchChannels,
+  },
+  message: {
+    add: addMessage,
+    fetch: fetchMessages,
+  },
+  init: fetchInitData,
+}
 
-export default api;
+export default handleApi;
