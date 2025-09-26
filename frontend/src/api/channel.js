@@ -22,12 +22,45 @@ const handleRenameChannel = async (value, channelId) => {
   }
 }
 
-export const handleSubmitForm = (name) => async (value, channelId) => {
+const handleLogin = async (credentials) => {
+  try {
+    const res = await api.post('api/v1/login', credentials);
+    return res.data;
+  } catch ({ status }) {
+    switch (status) {
+      case 401:
+        throw new Error('Неверные имя пользователя или пароль!');
+      default:
+        throw new Error('Неизвестная ошибка');
+    }
+  }
+}
+
+const handleSingUp = async (credentials) => {
+  try {
+    const res = await api.post('api/v1/signup', credentials);
+    return res.data;
+  } catch ({ status }) {
+    switch (status) {
+      case 409:
+        throw new Error('Пользователь уже существует!');
+      default:
+        throw new Error('Неизвестная ошибка');
+    }
+  }
+};
+
+
+export const handleSubmitForm = (name) => async (value, options) => {
   switch (name) {
     case 'add-channel':
       return handleAddChannel(value);
     case 'rename-channel':
-      return handleRenameChannel(value, channelId);
+      return handleRenameChannel(value, options);
+    case 'login':
+      return handleLogin(value);
+    case 'sing-up':
+      return handleSingUp(value);
     default:
       return;
   }

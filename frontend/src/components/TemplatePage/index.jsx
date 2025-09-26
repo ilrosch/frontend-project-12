@@ -1,13 +1,35 @@
-import { Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router';
+import { removeCredential, selectCurrentToken } from '../../services/slices/authSlice';
 
 export default function TemplatePage({ children }) {
+  const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector(selectCurrentToken);
+
+  const handleExit = () => {
+    localStorage.removeItem('user');
+    dispatch(removeCredential());
+    navigation('/login', { replace: true });
+  };
+
   return (
     <div className='d-flex flex-column bg-light' style={{ height: `100vh` }}>
-      <header className='d-flex py-3 bg-white shadow-sm' style={{ flex: '0 0' }}>
+      <header className='d-flex py-2 bg-white shadow-sm' style={{ flex: '0 0' }}>
         <Container>
-          <Row>
-            <Link to='/'>Slack chat</Link>
+          <Row style={{ minHeight: '40px' }}>
+            <Col className='d-flex justify-content-between align-items-center'>
+              <Link to='/' className='fw-bold text-primary link-underline link-underline-opacity-0'>
+                Hexlet chat
+              </Link>
+
+              {token && (
+                <Button variant='danger' onClick={handleExit}>
+                  Выход
+                </Button>
+              )}
+            </Col>
           </Row>
         </Container>
       </header>

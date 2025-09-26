@@ -33,7 +33,6 @@ export default function InputModal({
       handleSubmit(value, channelId)
         .then((channel) => {
           close();
-          console.log(channel);
           handleSetActiveChannel(channel)();
         })
         .finally(() => changeDisabledButton(buttonElement.current));
@@ -54,7 +53,10 @@ export default function InputModal({
               name='value'
               placeholder={label}
               value={formik.values.value}
-              onBlur={formik.handleBlur}
+              onBlur={(e) => {
+                formik.setFieldValue(name, e.target.value.trim());
+                formik.handleBlur(e);
+              }}
               onChange={formik.handleChange}
               isInvalid={formik.touched.value && !!formik.errors.value}
             />
