@@ -3,8 +3,10 @@ import { Button, Form } from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import changeDisabledButton from '../../../../utils/changeDisabledButton';
 import handleApi from '../../../../api';
+import { useTranslation } from 'react-i18next';
 
 export default function FormMessage({ activeChannel, username }) {
+  const { t } = useTranslation();
   const inputElement = useRef(null);
   const buttonElement = useRef(null);
 
@@ -36,7 +38,7 @@ export default function FormMessage({ activeChannel, username }) {
         ref={inputElement}
         id='message'
         name='message'
-        placeholder='Ваше сообщение...'
+        placeholder={t('chat.form.message')}
         value={formik.values.message}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -47,7 +49,7 @@ export default function FormMessage({ activeChannel, username }) {
         type='submit'
         disabled={!formik.isValid || !formik.dirty}
       >
-        Отправить
+        {t('element.button.send')}
       </Button>
     </Form>
   );

@@ -2,10 +2,12 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
 import { removeCredential, selectCurrentToken } from '../../../store/slices/auth';
+import { useTranslation } from 'react-i18next';
 
 export default function TemplatePage({ children }) {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const token = useSelector(selectCurrentToken);
 
   const handleExit = () => {
@@ -21,12 +23,12 @@ export default function TemplatePage({ children }) {
           <Row style={{ minHeight: '40px' }}>
             <Col className='d-flex justify-content-between align-items-center'>
               <Link to='/' className='fw-bold text-primary link-underline link-underline-opacity-0'>
-                Hexlet chat
+                {t('layout.header.title')}
               </Link>
 
               {token && (
                 <Button variant='danger' onClick={handleExit}>
-                  Выход
+                  {t('element.button.exit')}
                 </Button>
               )}
             </Col>
@@ -41,7 +43,7 @@ export default function TemplatePage({ children }) {
       <footer className='d-flex py-3 bg-dark' style={{ flex: '0 0' }}>
         <Container fluid='lg'>
           <Row>
-            <p className='text-secondary mb-0'>©2025 Hexlet chat | Slack</p>
+            <p className='text-secondary mb-0'>{t('layout.footer.text')}</p>
           </Row>
         </Container>
       </footer>

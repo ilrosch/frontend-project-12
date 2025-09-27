@@ -5,10 +5,13 @@ import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
 import { setCredential } from '../../../store/slices/auth';
 import changeDisabledButton from '../../../utils/changeDisabledButton';
+import { useTranslation } from 'react-i18next';
 
 export default function FormAuth({ fields = [], buttonText = '', schema, handleSubmit }) {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const buttonElement = useRef(null);
 
   const formik = useFormik({
@@ -24,7 +27,7 @@ export default function FormAuth({ fields = [], buttonText = '', schema, handleS
         dispatch(setCredential(resData));
         navigation('/', { replace: true });
       } catch (err) {
-        formik.setFieldError('submit', err.message);
+        formik.setFieldError('submit', t(err.message));
       } finally {
         changeDisabledButton(buttonElement.current);
       }
@@ -34,11 +37,11 @@ export default function FormAuth({ fields = [], buttonText = '', schema, handleS
   return (
     <Form className='mb-2' onSubmit={formik.handleSubmit} noValidate>
       {fields.map(({ name, label, type }) => (
-        <Form.FloatingLabel key={name} controlId={name} label={label} className='mb-2'>
+        <Form.FloatingLabel key={name} controlId={name} label={t(label)} className='mb-2'>
           <Form.Control
             type={type}
             name={name}
-            placeholder={label}
+            placeholder={t(label)}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values[name]}
@@ -59,7 +62,7 @@ export default function FormAuth({ fields = [], buttonText = '', schema, handleS
         className='mt-3'
         disabled={!formik.isValid || !formik.dirty}
       >
-        {buttonText}
+        {t(buttonText)}
       </Button>
 
       {formik.errors.submit && (

@@ -4,6 +4,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { selectChannelById } from '../../../../store/slices/channel';
 import changeDisabledButton from '../../../../utils/changeDisabledButton';
+import { useTranslation } from 'react-i18next';
 
 export default function InputModal({
   title,
@@ -14,6 +15,8 @@ export default function InputModal({
   handleSubmit,
   handleSetActiveChannel,
 }) {
+  const { t } = useTranslation();
+
   const inputElement = useRef(null);
   const buttonElement = useRef(null);
 
@@ -42,16 +45,16 @@ export default function InputModal({
   return (
     <Modal show onHide={close}>
       <Modal.Header>
-        <Modal.Title>{title}</Modal.Title>
+        <Modal.Title>{t(title)}</Modal.Title>
         <Button variant='close' onClick={close} />
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit} noValidate>
-          <Form.FloatingLabel controlId='value' label={label} className='mb-2'>
+          <Form.FloatingLabel controlId='value' label={t(label)} className='mb-2'>
             <Form.Control
               ref={inputElement}
               name='value'
-              placeholder={label}
+              placeholder={t(label)}
               value={formik.values.value}
               onBlur={(e) => {
                 formik.setFieldValue(name, e.target.value.trim());
@@ -66,7 +69,7 @@ export default function InputModal({
           </Form.FloatingLabel>
           <div className='d-flex justify-content-end gap-2'>
             <Button variant='secondary' onClick={close}>
-              Отменить
+              {t('element.button.cancel')}
             </Button>
             <Button
               ref={buttonElement}
@@ -74,7 +77,7 @@ export default function InputModal({
               variant='primary'
               disabled={!formik.isValid || !formik.dirty}
             >
-              Отправить
+              {t('element.button.send')}
             </Button>
           </div>
         </Form>

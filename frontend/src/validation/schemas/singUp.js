@@ -1,20 +1,20 @@
 import * as yup from 'yup';
 
-const SignUpSchema = yup.object().shape({
+const SignUpSchema = (t) => yup.object().shape({
   username: yup
     .string()
     .trim()
-    .min(3, 'Минимум 3 символа!')
-    .max(20, 'Максимум 20 символов!')
-    .required('Обязательное поле!'),
+    .min(3, t('yup.min', { count: 3 }))
+    .max(20, t('yup.max', { count: 20 }))
+    .required(t('yup.required')),
   password: yup
     .string()
-    .min(6, 'Минимум 6 символов!')
-    .required('Обязательное поле!'),
+    .min(6, t('yup.max', { count: 6 }))
+    .required(t('yup.required')),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('password'), null], 'Пароли должны совпадать!')
-    .required('Обязательное поле!')
+    .oneOf([yup.ref('password'), null], t('yup.form.passwordsMustMatch'))
+    .required(t('yup.required')),
 });
 
 export default SignUpSchema;

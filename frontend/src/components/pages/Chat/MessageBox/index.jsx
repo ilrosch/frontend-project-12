@@ -4,6 +4,7 @@ import { Col, ListGroup } from 'react-bootstrap';
 import { selectCurrentUser } from '../../../../store/slices/auth';
 import { selectAllmessages } from '../../../../store/slices/message';
 import FormMessage from '../FormMessage';
+import { useTranslation } from 'react-i18next';
 
 function ItemMessage({ msg, username }) {
   const isOwnMessage = username === msg.username;
@@ -25,6 +26,8 @@ function ItemMessage({ msg, username }) {
 }
 
 export default function MessageBox({ activeChannel }) {
+  const { t } = useTranslation();
+
   const messageBox = useRef(null);
   const currentUser = useSelector(selectCurrentUser);
   const messagesChannel = useSelector(selectAllmessages).filter(
@@ -38,8 +41,10 @@ export default function MessageBox({ activeChannel }) {
   return (
     <Col className='d-flex flex-column h-100 flex-grow-1' style={{ minWidth: '300px' }}>
       <div className='px-3 py-2 border-bottom'>
-        <div className='fw-bold'># {activeChannel.name}</div>
-        <div>{messagesChannel.length} сообщений</div>
+        <div className='fw-bold'>{t('chat.channel', { name: activeChannel.name })}</div>
+        <div>
+          <div>{t('chat.countMessage', { count: messagesChannel.length })}</div>
+        </div>
       </div>
 
       <ListGroup ref={messageBox} className='p-3 bg-white overflow-auto flex-grow-1'>

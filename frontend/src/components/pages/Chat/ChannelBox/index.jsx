@@ -6,8 +6,10 @@ import ConfirmModal from '../../../shared/Modal/Confirm';
 import InputModal from '../../../shared/Modal/Input';
 import schemas from '../../../../validation';
 import handleApi from '../../../../api';
+import { useTranslation } from 'react-i18next';
 
 function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSetIdChannel }) {
+  const { t } = useTranslation();
   const variantColor = activeChannel.id == channel.id ? 'secondary' : 'light';
 
   function ButtonChannel() {
@@ -17,7 +19,7 @@ function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSet
         variant={variantColor}
         onClick={handleSetActiveChannel(channel)}
       >
-        # {channel.name}
+        {t('chat.channel', { name: channel.name })}
       </Button>
     );
   }
@@ -37,10 +39,10 @@ function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSet
           <Dropdown.Item
             onClick={handleSetIdChannel(channel.id, { name: 'rename', value: channel.name })}
           >
-            Переименовать
+            {t('element.button.rename')}
           </Dropdown.Item>
           <Dropdown.Item onClick={handleSetIdChannel(channel.id, { name: 'remove' })}>
-            Удалить
+            {t('element.button.remove')}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -51,6 +53,8 @@ function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSet
 }
 
 export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
+  const { t } = useTranslation();
+
   const channels = useSelector(selectAllChannels);
   const [isOpenAddChannelModal, setOpenAddChannelModal] = useState(false);
   const [isOpenRenameChannelModal, setOpenRenameChannelModal] = useState(false);
@@ -103,7 +107,7 @@ export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
   return (
     <Col className='col-3 p-3 border-end h-100 d-flex flex-column' style={{ minWidth: '250px' }}>
       <div className='d-flex justify-content-between align-items-center mb-2'>
-        <div className='fs-5 fw-bold'>Каналы</div>
+        <div className='fs-5 fw-bold'>{t('chat.channels')}</div>
         <Button variant='outline-primary' onClick={() => setOpenAddChannelModal(true)}>
           +
         </Button>
@@ -124,31 +128,31 @@ export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
 
       {isOpenAddChannelModal && (
         <InputModal
-          title='Добавить канал'
-          label='Название канала'
+          title={t('modal.channel.add.title')}
+          label={t('modal.channel.add.field')}
           close={handleCloseModal('add')}
           handleSubmit={handleApi.channel.add}
-          schema={schemas.channel(channels)}
+          schema={schemas.channel(t, channels)}
           handleSetActiveChannel={handleSetActiveChannel}
         />
       )}
 
       {isOpenRenameChannelModal && (
         <InputModal
-          title='Переименовать канал'
-          label='Название канала'
+          title={t('modal.channel.rename.title')}
+          label={t('modal.channel.rename.field')}
           channelId={selectedChannelId}
           close={handleCloseModal('rename')}
           handleSubmit={handleApi.channel.rename}
-          schema={schemas.channel(channels)}
+          schema={schemas.channel(t, channels)}
           handleSetActiveChannel={handleSetActiveChannel}
         />
       )}
 
       {isOpenConfirmModal && (
         <ConfirmModal
-          title='Удалить канал'
-          text='Уверены?'
+          title={t('modal.channel.remove.title')}
+          label={t('modal.channel.remove.text')}
           close={handleCloseModal('confirm')}
           handleRemove={handleRemoveChannel}
         />

@@ -7,9 +7,9 @@ const login = async (credentials) => {
   } catch ({ status }) {
     switch (status) {
       case 401:
-        throw new Error('Неверные имя пользователя или пароль!');
+        throw new Error('error.auth.login.401');
       default:
-        throw new Error('Неизвестная ошибка');
+        throw new Error('error.unknow');
     }
   }
 }
@@ -21,9 +21,9 @@ const singUp = async (credentials) => {
   } catch ({ status }) {
     switch (status) {
       case 409:
-        throw new Error('Пользователь уже существует!');
+        throw new Error('error.auth.singup.409');
       default:
-        throw new Error('Неизвестная ошибка');
+        throw new Error('error.unknow');
     }
   }
 };

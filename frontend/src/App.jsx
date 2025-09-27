@@ -6,6 +6,8 @@ import LoginPage from './components/pages/Login';
 import SingUpPage from './components/pages/SingUp';
 import NotFoundPage from './components/pages/NotFound';
 
+import './i18n';
+
 export default function App() {
   return (
     <BrowserRouter>
