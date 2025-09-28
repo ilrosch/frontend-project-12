@@ -7,10 +7,12 @@ import SingUpPage from './components/pages/SingUp';
 import NotFoundPage from './components/pages/NotFound';
 
 import './i18n';
+import { ToastContainer } from 'react-toastify';
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path='/' element={<ChatPage />} />
         <Route path='/login' element={<LoginPage />} />

@@ -1,22 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import { selectChannelById } from '../../../../store/slices/channel';
-import changeDisabledButton from '../../../../utils/changeDisabledButton';
 import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
+import changeDisabledButton from '../../../../utils/changeDisabledButton';
 
-export default function InputModal({
-  title,
-  label,
-  channelId = '',
-  close,
-  schema,
-  handleSubmit,
-  handleSetActiveChannel,
-}) {
+export default function InputModal({ title, label, initValue, close, schema, handleSubmit }) {
   const { t } = useTranslation();
-
   const inputElement = useRef(null);
   const buttonElement = useRef(null);
 
@@ -24,21 +13,19 @@ export default function InputModal({
     inputElement.current.focus();
   }, []);
 
-  const initValue = useSelector((state) =>
-    channelId ? selectChannelById(state, channelId).name : '',
-  );
-
   const formik = useFormik({
     initialValues: { value: initValue },
     validationSchema: schema,
-    onSubmit: ({ value }) => {
-      changeDisabledButton(buttonElement.current);
-      handleSubmit(value, channelId)
-        .then((channel) => {
-          close();
-          handleSetActiveChannel(channel)();
-        })
-        .finally(() => changeDisabledButton(buttonElement.current));
+    onSubmit: async ({ value }) => {
+      try {
+        changeDisabledButton(buttonElement.current);
+        await handleSubmit(value);
+        close();
+      } catch (err) {
+        console.log(err);
+      } finally {
+        changeDisabledButton(buttonElement.current);
+      }
     },
   });
 

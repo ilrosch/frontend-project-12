@@ -5,6 +5,7 @@ import FormAuth from '../../shared/FormAuth';
 import schemas from '../../../validation';
 import handleApi from '../../../api';
 import { useTranslation } from 'react-i18next';
+import createToastPromise from '../../../utils/toast';
 
 export default function PageLogin() {
   const { t } = useTranslation();
@@ -22,7 +23,14 @@ export default function PageLogin() {
               ]}
               buttonText='element.button.login'
               schema={schemas.login(t)}
-              handleSubmit={handleApi.auth.login}
+              handleSubmit={async (value) => {
+                const res = await createToastPromise(handleApi.auth.login(value), {
+                  pending: t('toast.auth.login.pending'),
+                  success: t('toast.auth.login.success'),
+                  error: t('toast.auth.login.error'),
+                });
+                return res;
+              }}
             />
           </Card.Body>
           <Card.Footer className='text-center py-3 bg-white'>

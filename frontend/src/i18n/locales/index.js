@@ -6,6 +6,7 @@ import login from "./ru/login";
 import modal from "./ru/modal";
 import notFound from "./ru/notFound";
 import singup from "./ru/singup";
+import toast from "./ru/toast";
 import yup from "./ru/yup";
 
 const resources = {
@@ -19,6 +20,7 @@ const resources = {
       modal,
       notFound,
       singup,
+      toast,
       yup,
     }
   },

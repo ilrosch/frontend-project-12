@@ -6,11 +6,14 @@ import handleApi from '../../../api';
 
 import TemplatePage from '../../shared/TemplatePage';
 import ChatBox from './ChatBox';
+import createToastPromise from '../../../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 export default function PageChat() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentToken = useSelector(selectCurrentToken);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!currentToken) {
@@ -20,9 +23,12 @@ export default function PageChat() {
 
   useEffect(() => {
     if (currentToken) {
-      handleApi.init();
+      createToastPromise(handleApi.init(), {
+        pending: t('toast.chat.init.pending'),
+        error: t('toast.chat.init.error'),
+      });
     }
-  }, [currentToken, dispatch]);
+  }, [currentToken, dispatch, t]);
 
   if (!currentToken) {
     return null;

@@ -1,7 +1,7 @@
 import { Button, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-export default function ConfirmModal({ close, handleRemove, title, text }) {
+export default function ConfirmModal({ title, text, close, handleRemove }) {
   const { t } = useTranslation();
 
   return (

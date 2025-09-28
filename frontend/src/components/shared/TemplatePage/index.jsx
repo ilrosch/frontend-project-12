@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
 import { removeCredential, selectCurrentToken } from '../../../store/slices/auth';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
+import createToastPromise from '../../../utils/toast';
 
 export default function TemplatePage({ children }) {
   const navigation = useNavigate();
@@ -10,11 +12,19 @@ export default function TemplatePage({ children }) {
   const { t } = useTranslation();
   const token = useSelector(selectCurrentToken);
 
-  const handleExit = () => {
-    localStorage.removeItem('user');
-    dispatch(removeCredential());
-    navigation('/login', { replace: true });
-  };
+  const handleExit = () =>
+    createToastPromise(
+      (async () => {
+        localStorage.removeItem('user');
+        dispatch(removeCredential());
+        navigation('/login', { replace: true });
+      })(),
+      {
+        pending: t('toast.auth.logout.pending'),
+        success: t('toast.auth.logout.success'),
+        error: t('toast.auth.logout.error'),
+      },
+    );
 
   return (
     <div className='d-flex flex-column bg-light' style={{ height: `100vh` }}>

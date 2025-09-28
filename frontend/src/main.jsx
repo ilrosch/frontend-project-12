@@ -1,7 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { I18nextProvider } from 'react-i18next';
 
 import './assets/index.css';
 

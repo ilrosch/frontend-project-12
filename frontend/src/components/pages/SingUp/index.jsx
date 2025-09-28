@@ -5,6 +5,7 @@ import FormAuth from '../../shared/FormAuth';
 import schemas from '../../../validation';
 import handleApi from '../../../api';
 import { useTranslation } from 'react-i18next';
+import createToastPromise from '../../../utils/toast';
 
 export default function PageSingUp() {
   const { t } = useTranslation();
@@ -23,7 +24,13 @@ export default function PageSingUp() {
               ]}
               buttonText='element.button.send'
               schema={schemas.singUp(t)}
-              handleSubmit={handleApi.auth.singUp}
+              handleSubmit={async (value) => {
+                const res = await createToastPromise(handleApi.auth.singUp(value), {
+                  pending: t('toast.auth.singup.pending'),
+                  error: t('toast.auth.singup.error'),
+                });
+                return res;
+              }}
             />
           </Card.Body>
           <Card.Footer className='text-center py-3 bg-white'>
