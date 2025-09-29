@@ -64,7 +64,7 @@ export default function InputModal({ title, label, initValue, close, schema, han
               ref={buttonElement}
               type='submit'
               variant='primary'
-              disabled={!formik.isValid || !formik.dirty}
+              // disabled={!formik.isValid || !formik.dirty}
             >
               {t('element.button.send')}
             </Button>
