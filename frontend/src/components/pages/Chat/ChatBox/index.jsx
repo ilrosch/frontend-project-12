@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import ChannelBox from '../ChannelBox';
 import MessageBox from '../MessageBox';

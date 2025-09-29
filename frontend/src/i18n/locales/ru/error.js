@@ -7,7 +7,7 @@ const error = {
     signup: {
       409: 'Такой пользователь уже существует!',
     },
-  }
-};
+  },
+}
 
-export default error;
+export default error

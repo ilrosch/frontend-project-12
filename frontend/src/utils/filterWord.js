@@ -1,4 +1,4 @@
-import filter from 'leo-profanity';
+import filter from 'leo-profanity'
 
 const filterWords = (value) => {
   filter.loadDictionary('en')
@@ -9,4 +9,4 @@ const filterWords = (value) => {
   return filter.clean(ruFiltered)
 }
 
-export default filterWords;
+export default filterWords

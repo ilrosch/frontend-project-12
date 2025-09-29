@@ -4,4 +4,4 @@ const notFound = {
   link: 'на главную страницу',
 }
 
-export default notFound;
+export default notFound

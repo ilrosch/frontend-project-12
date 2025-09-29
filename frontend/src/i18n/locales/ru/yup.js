@@ -15,8 +15,8 @@ const yup = {
   },
 
   channel: {
-    exists: 'Канал уже существует!'
+    exists: 'Канал уже существует!',
   },
-};
+}
 
-export default yup;
+export default yup

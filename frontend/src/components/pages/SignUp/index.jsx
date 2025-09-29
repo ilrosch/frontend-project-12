@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router';
 import TemplatePage from '../../shared/TemplatePage';

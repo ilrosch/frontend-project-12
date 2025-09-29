@@ -13,6 +13,6 @@ const modal = {
       text: 'Уверены?',
     },
   },
-};
+}
 
-export default modal;
+export default modal

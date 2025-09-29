@@ -13,9 +13,9 @@ const toast = {
     },
     signup: {
       pending: 'Создание профиля',
-      success: 'Профиль создан'
+      success: 'Профиль создан',
       // error: 'Произошла ошибка',
-    }
+    },
   },
   chat: {
     init: {
@@ -40,6 +40,6 @@ const toast = {
       // error: 'Произошла ошибка',
     },
   },
-};
+}
 
-export default toast;
+export default toast

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Alert } from 'react-bootstrap';
 import { Link } from 'react-router';
 import TemplatePage from '../../shared/TemplatePage';

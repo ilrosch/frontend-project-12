@@ -8,7 +8,7 @@ const chat = {
   form: {
     message: 'Введите сообщение...',
     label: 'Новое сообщение',
-  }
-};
+  },
+}
 
-export default chat;
+export default chat

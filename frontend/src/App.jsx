@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { Provider, ErrorBoundary } from '@rollbar/react';
 import { ToastContainer } from 'react-toastify';

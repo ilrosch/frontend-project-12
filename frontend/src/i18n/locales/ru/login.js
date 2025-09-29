@@ -5,6 +5,6 @@ const login = {
     name: 'Ваш ник',
     password: 'Пароль',
   },
-};
+}
 
-export default login;
+export default login

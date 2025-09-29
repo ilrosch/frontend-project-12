@@ -7,6 +7,6 @@ const element = {
     login: 'Войти',
     send: 'Отправить',
   },
-};
+}
 
-export default element;
+export default element

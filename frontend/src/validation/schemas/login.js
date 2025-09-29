@@ -1,6 +1,6 @@
-import * as yup from 'yup';
+import * as yup from 'yup'
 
-const LoginSchema = (t) => yup.object().shape({
+const LoginSchema = t => yup.object().shape({
   username: yup
     .string()
     .trim()
@@ -10,6 +10,6 @@ const LoginSchema = (t) => yup.object().shape({
   password: yup
     .string()
     .required(t('yup.required')),
-});
+})
 
-export default LoginSchema;
+export default LoginSchema
