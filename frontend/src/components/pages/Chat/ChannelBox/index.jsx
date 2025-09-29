@@ -34,8 +34,9 @@ function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSet
           id={`dropdown-channel-${channel.id}`}
           variant={variantColor}
           style={{ marginLeft: '-10px' }}
-          aria-label={t('chat.controlChannel')}
-        />
+        >
+          <span className='visually-hidden'>{t('chat.controlChannel')}</span>
+        </Dropdown.Toggle>
 
         <Dropdown.Menu className='dropdown-menu-custom'>
           <Dropdown.Item
