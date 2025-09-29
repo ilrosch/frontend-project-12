@@ -39,6 +39,7 @@ export default function FormMessage({ activeChannel, username }) {
         id='message'
         name='message'
         placeholder={t('chat.form.message')}
+        aria-label={t('chat.form.label')}
         value={formik.values.message}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}

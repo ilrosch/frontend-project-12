@@ -11,7 +11,7 @@ const toast = {
       success: 'Успешный выход',
       error: 'Произошла ошибка',
     },
-    singup: {
+    signup: {
       pending: 'Создание профиля',
       success: 'Профиль создан'
       // error: 'Произошла ошибка',
