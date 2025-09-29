@@ -2,11 +2,11 @@ const modal = {
   channel: {
     add: {
       title: 'Добавить канал',
-      field: 'Название канала',
+      field: 'Имя канала',
     },
     rename: {
       title: 'Переименовать канал',
-      field: 'Название канала',
+      field: 'Имя канала',
     },
     remove: {
       title: 'Удалить канал',
