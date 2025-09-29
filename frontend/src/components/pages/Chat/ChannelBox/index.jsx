@@ -1,35 +1,33 @@
-import React from 'react';
-
-import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Button, Col, Dropdown, ListGroup } from 'react-bootstrap';
-import { selectAllChannels, selectChannelById } from '../../../../store/slices/channel';
-import ConfirmModal from '../../../shared/Modal/Confirm';
-import InputModal from '../../../shared/Modal/Input';
-import schemas from '../../../../validation';
-import handleApi from '../../../../api';
-import { useTranslation } from 'react-i18next';
-import { createToastPromise } from '../../../../utils/toast';
+import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Button, Col, Dropdown, ListGroup } from 'react-bootstrap'
+import { selectAllChannels, selectChannelById } from '../../../../store/slices/channel'
+import ConfirmModal from '../../../shared/Modal/Confirm'
+import InputModal from '../../../shared/Modal/Input'
+import schemas from '../../../../validation'
+import handleApi from '../../../../api'
+import { useTranslation } from 'react-i18next'
+import { createToastPromise } from '../../../../utils/toast'
 
 function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSetIdChannel }) {
-  const { t } = useTranslation();
-  const variantColor = activeChannel.id == channel.id ? 'secondary' : 'light';
+  const { t } = useTranslation()
+  const variantColor = activeChannel.id == channel.id ? 'secondary' : 'light'
 
   function ButtonChannel() {
     return (
       <Button
-        className='w-100 text-start text-wrap'
+        className="w-100 text-start text-wrap"
         variant={variantColor}
         onClick={handleSetActiveChannel(channel)}
       >
         {t('chat.channel', { name: channel.name })}
       </Button>
-    );
+    )
   }
 
   if (channel.removable) {
     return (
-      <Dropdown className='d-flex'>
+      <Dropdown className="d-flex">
         <ButtonChannel />
 
         <Dropdown.Toggle
@@ -37,10 +35,10 @@ function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSet
           variant={variantColor}
           style={{ marginLeft: '-10px' }}
         >
-          <span className='visually-hidden'>{t('chat.controlChannel')}</span>
+          <span className="visually-hidden">{t('chat.controlChannel')}</span>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className='dropdown-menu-custom'>
+        <Dropdown.Menu className="dropdown-menu-custom">
           <Dropdown.Item
             onClick={handleSetIdChannel(channel.id, { name: 'rename', value: channel.name })}
           >
@@ -51,102 +49,102 @@ function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSet
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-    );
+    )
   }
 
-  return <ButtonChannel />;
+  return <ButtonChannel />
 }
 
 export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const channels = useSelector(selectAllChannels);
-  const [isOpenAddChannelModal, setOpenAddChannelModal] = useState(false);
-  const [isOpenRenameChannelModal, setOpenRenameChannelModal] = useState(false);
-  const [isOpenConfirmModal, setOpenConfirmModal] = useState(false);
-  const [selectedChannelId, setSelectedChannelId] = useState(null);
-  const channelBox = useRef(null);
+  const channels = useSelector(selectAllChannels)
+  const [isOpenAddChannelModal, setOpenAddChannelModal] = useState(false)
+  const [isOpenRenameChannelModal, setOpenRenameChannelModal] = useState(false)
+  const [isOpenConfirmModal, setOpenConfirmModal] = useState(false)
+  const [selectedChannelId, setSelectedChannelId] = useState(null)
+  const channelBox = useRef(null)
 
-  const initValueModalRename = useSelector((state) =>
+  const initValueModalRename = useSelector(state =>
     selectedChannelId ? selectChannelById(state, selectedChannelId)?.name : '',
-  );
+  )
 
   useEffect(() => {
-    channelBox.current.scrollTop = channelBox.current.scrollHeight;
-  }, [channels]);
+    channelBox.current.scrollTop = channelBox.current.scrollHeight
+  }, [channels])
 
-  const handleCloseModal = (name) => () => {
+  const handleCloseModal = name => () => {
     switch (name) {
       case 'add':
-        return setOpenAddChannelModal(false);
+        return setOpenAddChannelModal(false)
       case 'rename':
-        return setOpenRenameChannelModal(false);
+        return setOpenRenameChannelModal(false)
       case 'confirm':
-        return setOpenConfirmModal(false);
+        return setOpenConfirmModal(false)
       default:
-        return;
+        return
     }
-  };
+  }
 
   const handleChannel = {
     add: async (value) => {
       const res = await createToastPromise(handleApi.channel.add(value), {
         pending: t('toast.channel.add.pending'),
         success: t('toast.channel.add.success'),
-      });
+      })
 
-      handleSetActiveChannel(res)();
+      handleSetActiveChannel(res)()
     },
     rename: async (value) => {
       const res = await createToastPromise(handleApi.channel.rename(value, selectedChannelId), {
         pending: t('toast.channel.rename.pending'),
         success: t('toast.channel.rename.success'),
-      });
+      })
 
-      handleSetActiveChannel(res)();
+      handleSetActiveChannel(res)()
     },
     remove: async () => {
       await createToastPromise(handleApi.channel.remove(selectedChannelId), {
         pending: t('toast.channel.remove.pending'),
         success: t('toast.channel.remove.success'),
         error: t('toast.channel.remove.error'),
-      });
+      })
 
       if (selectedChannelId === activeChannel.id) {
-        handleSetActiveChannel()();
+        handleSetActiveChannel()()
       }
 
-      handleCloseModal('confirm')();
+      handleCloseModal('confirm')()
     },
-  };
+  }
 
   const handleSetIdChannel = (channelId, options) => () => {
     switch (options.name) {
       case 'rename':
-        setSelectedChannelId(channelId);
-        setOpenRenameChannelModal(true);
-        break;
+        setSelectedChannelId(channelId)
+        setOpenRenameChannelModal(true)
+        break
       case 'remove':
-        setSelectedChannelId(channelId);
-        setOpenConfirmModal(true);
-        break;
+        setSelectedChannelId(channelId)
+        setOpenConfirmModal(true)
+        break
       default:
-        return;
+        return
     }
-  };
+  }
 
   return (
-    <Col className='col-3 p-3 border-end h-100 d-flex flex-column' style={{ minWidth: '250px' }}>
-      <div className='d-flex justify-content-between align-items-center mb-2'>
-        <div className='fs-5 fw-bold'>{t('chat.channels')}</div>
-        <Button variant='outline-primary' onClick={() => setOpenAddChannelModal(true)}>
+    <Col className="col-3 p-3 border-end h-100 d-flex flex-column" style={{ minWidth: '250px' }}>
+      <div className="d-flex justify-content-between align-items-center mb-2">
+        <div className="fs-5 fw-bold">{t('chat.channels')}</div>
+        <Button variant="outline-primary" onClick={() => setOpenAddChannelModal(true)}>
           +
         </Button>
       </div>
 
-      <ListGroup ref={channelBox} className='overflow-auto flex-grow-1'>
-        {channels.map((channel) => (
-          <ListGroup.Item key={`channel-${channel.id}`} className='border-0 p-0'>
+      <ListGroup ref={channelBox} className="overflow-auto flex-grow-1">
+        {channels.map(channel => (
+          <ListGroup.Item key={`channel-${channel.id}`} className="border-0 p-0">
             <ItemChannel
               channel={channel}
               activeChannel={activeChannel}
@@ -159,8 +157,8 @@ export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
 
       {isOpenAddChannelModal && (
         <InputModal
-          title={'modal.channel.add.title'}
-          label={'modal.channel.add.field'}
+          title="modal.channel.add.title"
+          label="modal.channel.add.field"
           close={handleCloseModal('add')}
           schema={schemas.channel(t, channels)}
           handleSubmit={handleChannel.add}
@@ -169,8 +167,8 @@ export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
 
       {isOpenRenameChannelModal && (
         <InputModal
-          title={'modal.channel.rename.title'}
-          label={'modal.channel.rename.field'}
+          title="modal.channel.rename.title"
+          label="modal.channel.rename.field"
           initValue={initValueModalRename}
           close={handleCloseModal('rename')}
           schema={schemas.channel(t, channels)}
@@ -180,12 +178,12 @@ export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
 
       {isOpenConfirmModal && (
         <ConfirmModal
-          title={'modal.channel.remove.title'}
-          text={'modal.channel.remove.text'}
+          title="modal.channel.remove.title"
+          text="modal.channel.remove.text"
           close={handleCloseModal('confirm')}
           handleRemove={handleChannel.remove}
         />
       )}
     </Col>
-  );
+  )
 }

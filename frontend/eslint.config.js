@@ -1,11 +1,27 @@
-import js from "@eslint/js";
-import globals from "globals";
-import pluginReact from "eslint-plugin-react";
-import { defineConfig, globalIgnores } from "eslint/config";
+import js from '@eslint/js'
+import globals from 'globals'
+import pluginReact from 'eslint-plugin-react'
+import { defineConfig, globalIgnores } from 'eslint/config'
+import { includeIgnoreFile } from '@eslint/compat'
+import stylistic from '@stylistic/eslint-plugin'
+import { fileURLToPath } from 'url'
+
+const gitIgnorePath = fileURLToPath(new URL('.gitignore', import.meta.url))
+// const eslintIgnorePath = fileURLToPath(new URL('.eslintignore', import.meta.url))
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,jsx}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
+  includeIgnoreFile(gitIgnorePath),
+  // includeIgnoreFile(eslintIgnorePath),
+  globalIgnores(['dist']),
+  stylistic.configs.recommended,
+  { files: ['**/*.{js,mjs,cjs,jsx}'], plugins: { js }, extends: ['js/recommended'] },
+  { files: ['**/*.{js,mjs,cjs,jsx}'], languageOptions: { globals: globals.browser } },
   pluginReact.configs.flat.recommended,
-  globalIgnores(['dist'])
-]);
-
+  {
+    rules: {
+      'react/prop-types': [0],
+      'react/react-in-jsx-scope': 0,
+      'react/jsx-uses-react': 0,
+    },
+  },
+])
