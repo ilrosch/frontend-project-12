@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
+import { Provider, ErrorBoundary } from '@rollbar/react';
+import { ToastContainer } from 'react-toastify';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ChatPage from './components/pages/Chat';
@@ -7,18 +10,26 @@ import SingUpPage from './components/pages/SingUp';
 import NotFoundPage from './components/pages/NotFound';
 
 import './i18n';
-import { ToastContainer } from 'react-toastify';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ToastContainer />
-      <Routes>
-        <Route path='/' element={<ChatPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/singup' element={<SingUpPage />} />
-        <Route path='*' element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider
+      config={{
+        accessToken: import.meta.env.VITE_ACCESS_TOKEN,
+        environment: import.meta.env.VITE_ENVIRONMENT,
+      }}
+    >
+      <ErrorBoundary>
+        <BrowserRouter>
+          <ToastContainer />
+          <Routes>
+            <Route path='/' element={<ChatPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/singup' element={<SingUpPage />} />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </ErrorBoundary>
+    </Provider>
   );
 }

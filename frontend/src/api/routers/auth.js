@@ -9,7 +9,7 @@ const login = async (credentials) => {
       case 401:
         throw new Error('error.auth.login.401');
       default:
-        throw new Error('error.unknow');
+        throw new Error('error.unknown');
     }
   }
 }
@@ -23,7 +23,7 @@ const singUp = async (credentials) => {
       case 409:
         throw new Error('error.auth.singup.409');
       default:
-        throw new Error('error.unknow');
+        throw new Error('error.unknown');
     }
   }
 };
