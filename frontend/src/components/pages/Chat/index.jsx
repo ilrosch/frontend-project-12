@@ -6,7 +6,7 @@ import handleApi from '../../../api';
 
 import TemplatePage from '../../shared/TemplatePage';
 import ChatBox from './ChatBox';
-import createToastPromise from '../../../utils/toast';
+import { createToastPromise } from '../../../utils/toast';
 import { useTranslation } from 'react-i18next';
 
 export default function PageChat() {

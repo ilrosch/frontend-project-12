@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
 import { removeCredential, selectCurrentToken } from '../../../store/slices/auth';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer } from 'react-toastify';
-import createToastPromise from '../../../utils/toast';
+import { createToastPromise } from '../../../utils/toast';
 
 export default function TemplatePage({ children }) {
   const navigation = useNavigate();

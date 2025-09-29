@@ -1,11 +1,11 @@
 import ChannelSchema from "./schemas/channel";
 import LoginSchema from "./schemas/login";
-import SignUpSchema from "./schemas/singUp";
+import SignUpSchema from "./schemas/signup";
 
 const schemas = {
   channel: ChannelSchema,
   login: LoginSchema,
-  singUp: SignUpSchema,
+  signup: SignUpSchema,
 };
 
 export default schemas;

@@ -1,12 +1,12 @@
 import { addChannel, fetchChannels, removeChannel, renameChannel } from "./routers/channel";
 import { addMessage, fetchMessages } from "./routers/message";
 import { fetchInitData } from "./routers/init";
-import { login, singUp } from "./routers/auth";
+import { login, signup } from "./routers/auth";
 
 const handleApi = {
   auth: {
     login,
-    singUp
+    signup
   },
   channel: {
     add: addChannel,

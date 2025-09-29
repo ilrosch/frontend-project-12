@@ -7,7 +7,7 @@ import InputModal from '../../../shared/Modal/Input';
 import schemas from '../../../../validation';
 import handleApi from '../../../../api';
 import { useTranslation } from 'react-i18next';
-import createToastPromise from '../../../../utils/toast';
+import { createToastPromise } from '../../../../utils/toast';
 
 function ItemChannel({ channel, activeChannel, handleSetActiveChannel, handleSetIdChannel }) {
   const { t } = useTranslation();
@@ -89,7 +89,6 @@ export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
       const res = await createToastPromise(handleApi.channel.add(value), {
         pending: t('toast.channel.add.pending'),
         success: t('toast.channel.add.success'),
-        error: t('toast.channel.add.error'),
       });
 
       handleSetActiveChannel(res)();
@@ -98,7 +97,6 @@ export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
       const res = await createToastPromise(handleApi.channel.rename(value, selectedChannelId), {
         pending: t('toast.channel.rename.pending'),
         success: t('toast.channel.rename.success'),
-        error: t('toast.channel.rename.error'),
       });
 
       handleSetActiveChannel(res)();

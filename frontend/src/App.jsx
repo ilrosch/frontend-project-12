@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ChatPage from './components/pages/Chat';
 import LoginPage from './components/pages/Login';
-import SingUpPage from './components/pages/SingUp';
+import SignUpPage from './components/pages/SignUp';
 import NotFoundPage from './components/pages/NotFound';
 
 import './i18n';
@@ -25,7 +25,7 @@ export default function App() {
           <Routes>
             <Route path='/' element={<ChatPage />} />
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/singup' element={<SingUpPage />} />
+            <Route path='/signup' element={<SignUpPage />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

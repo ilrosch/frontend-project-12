@@ -1,12 +1,13 @@
 const yup = {
-  min_one: 'Минимум {{count}} символ!',
-  min_few: 'Минимум {{count}} символа!',
-  min_many: 'Минимум {{count}} символов!',
+  min_one: 'Не менее {{count}} символ!',
+  min_few: 'Не менее {{count}} символа!',
+  min_many: 'Не менее {{count}} символов!',
 
-  max_one: 'Максимум {{count}} символ!',
-  max_few: 'Максимум {{count}} символа!',
-  max_many: 'Максимум {{count}} символов!',
+  max_one: 'Не более {{count}} символ!',
+  max_few: 'Не более {{count}} символа!',
+  max_many: 'Не более {{count}} символов!',
 
+  customLen: 'От 3 до 20 символов',
   required: 'Обязательное поле!',
 
   form: {

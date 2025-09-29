@@ -8,4 +8,6 @@ const createToastPromise = async (handler, messages, options = {}) => {
   });
 };
 
-export default createToastPromise;
+const createToastError = (message) => toast.error(message, { autoClose: 2000 });
+
+export { createToastPromise, createToastError };

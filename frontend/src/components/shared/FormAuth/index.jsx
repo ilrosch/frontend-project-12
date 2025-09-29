@@ -6,8 +6,9 @@ import { useFormik } from 'formik';
 import { setCredential } from '../../../store/slices/auth';
 import changeDisabledButton from '../../../utils/changeDisabledButton';
 import { useTranslation } from 'react-i18next';
+import { createToastError } from '../../../utils/toast';
 
-export default function FormAuth({ fields = [], buttonText = '', schema, handleSubmit }) {
+export default function FormAuth({ fields, buttonText, schema, handleSubmit }) {
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -27,7 +28,8 @@ export default function FormAuth({ fields = [], buttonText = '', schema, handleS
         dispatch(setCredential(resData));
         navigation('/', { replace: true });
       } catch (err) {
-        formik.setFieldError('submit', t(err.message));
+        createToastError(t(err));
+        formik.setFieldError('submit', t(err));
       } finally {
         changeDisabledButton(buttonElement.current);
       }

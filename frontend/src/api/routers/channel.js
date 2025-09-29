@@ -1,5 +1,6 @@
 import store from "../../store";
 import { addChannel, removeChannel, updateChannel } from "../../store/slices/channel";
+import handleError from "../../utils/handleError";
 import axios from "../clients/axios";
 import socket from "../clients/socket";
 
@@ -24,7 +25,7 @@ const add = async (value) => {
     const res = await axios.post('/api/v1/channels', { name: value });
     return res.data;
   } catch (err) {
-    console.error(err);
+    handleError(err);
   }
 }
 
@@ -33,7 +34,7 @@ const rename = async (value, channelId) => {
     const res = await axios.patch('/api/v1/channels/' + channelId, { name: value });
     return res.data;
   } catch (err) {
-    console.error(err);
+    handleError(err);
   }
 }
 

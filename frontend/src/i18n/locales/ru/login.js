@@ -3,7 +3,7 @@ const login = {
   text: 'Нет аккаунта?',
   form: {
     name: 'Ваш ник',
-    password: 'Ваш пароль',
+    password: 'Пароль',
   },
 };
 

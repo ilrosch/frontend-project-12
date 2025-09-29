@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import changeDisabledButton from '../../../../utils/changeDisabledButton';
 import filterWords from '../../../../utils/filterWord';
+import { createToastError } from '../../../../utils/toast';
 
 export default function InputModal({ title, label, initValue, close, schema, handleSubmit }) {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export default function InputModal({ title, label, initValue, close, schema, han
         await handleSubmit(filterWords(value));
         close();
       } catch (err) {
-        console.log(err);
+        createToastError(t(err));
       } finally {
         changeDisabledButton(buttonElement.current);
       }

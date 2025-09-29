@@ -5,7 +5,7 @@ import layout from "./ru/layout";
 import login from "./ru/login";
 import modal from "./ru/modal";
 import notFound from "./ru/notFound";
-import singup from "./ru/singup";
+import signup from "./ru/signup";
 import toast from "./ru/toast";
 import yup from "./ru/yup";
 
@@ -19,7 +19,7 @@ const resources = {
       login,
       modal,
       notFound,
-      singup,
+      signup,
       toast,
       yup,
     }
