@@ -62,7 +62,7 @@ export default function FormAuth({ fields, buttonText, schema, handleSubmit }) {
         variant='primary'
         size='lg'
         className='mt-3'
-        disabled={!formik.isValid || !formik.dirty}
+        // disabled={!formik.isValid || !formik.dirty}
       >
         {t(buttonText)}
       </Button>

@@ -10,7 +10,7 @@ const SignUpSchema = (t) => yup.object().shape({
     .required(t('yup.required')),
   password: yup
     .string()
-    .min(6, t('yup.max', { count: 6 }))
+    .min(6, t('yup.min', { count: 6 }))
     .required(t('yup.required')),
   confirmPassword: yup
     .string()
