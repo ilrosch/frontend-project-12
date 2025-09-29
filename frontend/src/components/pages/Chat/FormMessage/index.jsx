@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import changeDisabledButton from '../../../../utils/changeDisabledButton';
 import handleApi from '../../../../api';
 import { useTranslation } from 'react-i18next';
+import filterWords from '../../../../utils/filterWord';
 
 export default function FormMessage({ activeChannel, username }) {
   const { t } = useTranslation();
@@ -20,7 +21,7 @@ export default function FormMessage({ activeChannel, username }) {
       changeDisabledButton(buttonElement.current);
 
       try {
-        const msgData = { body: message, channelId: activeChannel.id, username };
+        const msgData = { body: filterWords(message), channelId: activeChannel.id, username };
         await handleApi.message.add(msgData);
 
         formik.resetForm();

@@ -3,6 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import changeDisabledButton from '../../../../utils/changeDisabledButton';
+import filterWords from '../../../../utils/filterWord';
 
 export default function InputModal({ title, label, initValue, close, schema, handleSubmit }) {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ export default function InputModal({ title, label, initValue, close, schema, han
     onSubmit: async ({ value }) => {
       try {
         changeDisabledButton(buttonElement.current);
-        await handleSubmit(value);
+        await handleSubmit(filterWords(value));
         close();
       } catch (err) {
         console.log(err);
