@@ -1,6 +1,6 @@
 # Chat (Slack) | Hexlet project
 
-[![Actions Status](https://github.com/ilrosch/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ilrosch/frontend-project-12/actions)
+[![Actions Status](https://github.com/ilrosch/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ilrosch/frontend-project-12/actions) [![Maintainability](https://qlty.sh/gh/ilrosch/projects/frontend-project-12/maintainability.svg)](https://qlty.sh/gh/ilrosch/projects/frontend-project-12)
 
 [**DEMO** - click here!](https://frontend-project-12-9p10.onrender.com/)
 
