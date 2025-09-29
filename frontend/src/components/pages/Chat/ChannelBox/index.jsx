@@ -105,7 +105,7 @@ export default function ChannelBox({ activeChannel, handleSetActiveChannel }) {
     },
     remove: async () => {
       await createToastPromise(handleApi.channel.remove(selectedChannelId), {
-        // pending: t('toast.channel.remove.pending'),
+        pending: t('toast.channel.remove.pending'),
         success: t('toast.channel.remove.success'),
         error: t('toast.channel.remove.error'),
       });

@@ -36,7 +36,7 @@ export default function TemplatePage({ children }) {
               </Link>
 
               {token && (
-                <Button variant='danger' onClick={handleExit}>
+                <Button variant='outline-danger' onClick={handleExit}>
                   {t('element.button.exit')}
                 </Button>
               )}
